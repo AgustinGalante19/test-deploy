@@ -7,6 +7,7 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const morgan_1 = __importDefault(require("morgan"));
 const dotenv_1 = __importDefault(require("dotenv"));
+const Lotes_1 = __importDefault(require("./routes/Lotes"));
 dotenv_1.default.config();
 class Server {
     constructor() {
@@ -15,7 +16,7 @@ class Server {
         this.routes();
     }
     config() {
-        this.app.set('port', process.env.PORT || 3000);
+        this.app.set('port', process.env.PORT || 4000);
         this.app.use((0, cors_1.default)());
         this.app.use((0, morgan_1.default)("dev"));
     }
@@ -23,6 +24,7 @@ class Server {
         this.app.get('/', (req, res) => {
             res.send('hello world');
         });
+        this.app.use('/api', Lotes_1.default);
     }
     start() {
         this.app.listen(process.env.PORT || this.app.get('port'), () => {
